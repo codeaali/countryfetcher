@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <input type="text" name="" id="country" placeholder="enter country name">
+                <button onclick="fetchCountry()" class="btn btn-success"  type="button">Fetch Data</button>
+            </div>
+            <div class="col-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4" id="result">
+    
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+    
+
+
+
+    <script>
+        function populate(country) {
+            let name = country[0].name
+            //console.log(name);
+            let capital = country[0].capital
+
+            let population = country[0].population
+            let flag = country[0].flag
+            let currency_name = country[0].currencies[0].name
+            let currency_symbol = country[0].currencies[0].symbol
+            //console.log(currency_symbol);
+            let html_data = `<div class="card" style="width: 18rem;">
+                <img src="${flag}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Country Name: ${name}</h5>
+                    
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Capita: ${capital}</li>
+                    <li class="list-group-item">Population: ${population}</li>
+                    <li class="list-group-item">Currency Name: ${currency_name}</li>
+                    <li class="list-group-item">Currency Symbol: ${currency_symbol}</li>
+                </ul>
+              
+                </div>`
+                result.innerHTML = html_data
+        }
+
+        function fetchCountry() {
+            let country_name = country.value
+            //alert(country_name)
+            let url = `https://restcountries.eu/rest/v2/name/${country_name}?fullText=true`
+            //window.location.href = url
+
+            fetch(url).then(res => res.json()).then(data => populate(data))
+        }
+    </script>
+</body>
+
+</html>
